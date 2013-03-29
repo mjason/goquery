@@ -17,6 +17,7 @@ Syntax-wise, it is as close as possible to jQuery, with the same function names 
     $ mv go-exp/src/pkg/exp .
     $ rm -rf go-exp
     $ go install exp/...
+    $ go get code.google.com/p/mahonia
 
 2- Install the latest Cascadia version that compiles with Go1:
 

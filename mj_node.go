@@ -1,8 +1,10 @@
 package goquery
 
 import (
+	"bytes"
 	"code.google.com/p/mahonia"
 	"exp/html"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -29,6 +31,28 @@ func NewDocumentFromPostUrl(uri string, data url.Values) (d *Document, err error
 		return
 	}
 
+	d = newDocument(root, resp.Request.URL)
+	return
+}
+
+func NewDocumentGBK(uri string) (d *Document, err error) {
+	resp, err := http.Get(uri)
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	body_gbk := bytes.NewBufferString(GbkToUtf8(string(body)))
+	resp.Body = ioutil.NopCloser(body_gbk)
+	root, err := html.Parse(resp.Body)
+	if err != nil {
+		return
+	}
 	d = newDocument(root, resp.Request.URL)
 	return
 }

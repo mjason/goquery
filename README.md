@@ -64,6 +64,14 @@ GoQuery's complete [godoc reference documentation can be found here][doc].
 Please note that Cascadia's selectors do NOT necessarily match all supported selectors of jQuery (Sizzle). See the [cascadia project][cascadia] for details.
 
 ## Examples
+GBK html
+```Go
+doc, err := goquery.NewDocumentGBK("http://www.gzepb.gov.cn/comm/pm25.asp")
+if err != nil {
+  panic(err)
+}
+fmt.Println(doc.Find("table[background='index.jpg'] table:first-child b:first-child").Text())
+```
 
 Taken from example_test.go:
 
